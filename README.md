@@ -1,4 +1,4 @@
-# Stock-Trading-Environment
-A custom OpenAI gym environment for simulating stock trades on historical price data.
+# Reinforcement-Learning-Stock-Trading
+Building an RL based agent which can beat stock market.
 
-If you'd like to learn about creating custom OpenAI gym environments, check out the Medium article: https://medium.com/@adamjking3/creating-a-custom-openai-gym-environment-for-stock-trading-be532be3910e
+Open AI gym reference docs: https://gymnasium.farama.org/
