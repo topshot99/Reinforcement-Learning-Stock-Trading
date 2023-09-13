@@ -1,7 +1,7 @@
 import random
 import json
-import gym
-from gym import spaces
+import gymnasium
+from gymnasium import spaces
 import pandas as pd
 import numpy as np
 
@@ -14,8 +14,8 @@ MAX_STEPS = 20000
 INITIAL_ACCOUNT_BALANCE = 10000
 
 
-class StockTradingEnv(gym.Env):
-    """A stock trading environment for OpenAI gym"""
+class StockTradingEnv(gymnasium.Env):
+    """A stock trading environment for OpenAI gymnasium"""
     metadata = {'render.modes': ['human']}
 
     def __init__(self, df):
