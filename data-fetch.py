@@ -1,9 +1,17 @@
 import yfinance as yf
 import os
+import pandas as pd
 
-# Get the data for Hindustan Unilever from 2000 to 2015
-data = yf.download("HINDUNILVR.NS", start="2016-01-01", end="2018-12-31")
+# Define a list of Nifty 50 stock symbols
+nifty50_symbols = ["ADANIENT.NS","ADANIPORTS.NS","APOLLOHOSP.NS","ASIANPAINT.NS","AXISBANK.NS","BAJAJ-AUTO.NS","BAJAJFINSV.NS","BPCL.NS","BHARTIARTL.NS","BRITANNIA.NS","CIPLA.NS","COALINDIA.NS","DIVISLAB.NS","DRREDDY.NS","EICHERMOT.NS","GRASIM.NS","HCLTECH.NS","HDFCBANK.NS","HDFCLIFE.NS","HEROMOTOCO.NS","HINDALCO.NS","HINDUNILVR.NS","HDFC.NS","ITC.NS","ICICIBANK.NS","INDUSINDBK.NS","INFY.NS","JSWSTEEL.NS","KOTAKBANK.NS","LT.NS","M&M.NS","MARUTI.NS","NESTLEIND.NS","NTPC.NS","ONGC.NS","POWERGRID.NS","RELIANCE.NS","SBILIFE.NS","SBIN.NS","SUNPHARMA.NS","TCS.NS","TATACONSUM.NS","TATAMOTORS.NS","TATASTEEL.NS","TATASTEEL.NS","TECHM.NS","TITAN.NS","ULTRACEMCO.NS","UPL.NS","WIPRO.NS"]
 
-# Save the data to a CSV file in the data folder
+# Define the start and end dates for the data
+start_date = "2018-01-01"
+end_date = "2023-9-14"
 
-data.to_csv(os.path.join("test_data", "HINDUNILVR.csv"))
+# Loop through the Nifty 50 stock symbols and download their data
+for symbol in nifty50_symbols:
+    data = yf.download(symbol, start=start_date, end=end_date)
+    data.to_csv(os.path.join("data", symbol+".csv"))
+    
+    # Save the data to a CSV file in
