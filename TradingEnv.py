@@ -1,26 +1,21 @@
 import gymnasium as gym
 import pandas as pd
-
 import gym_trading_env
+
 df = pd.read_csv('./data/HINDUNILVR.csv')
 new_columns = {"Date":"date","Open":"open","High":"high","Low":"low","Close":"close","Adj Close":"adj_close","Volume":"volume"}
 # df is a DataFrame with columns : "open", "high", "low", "close", "volume"
 df.rename(columns=new_columns,inplace=True)
 # Create the feature : ( close[t] - close[t-1] )/ close[t-1]
 df["feature_close"] = df["close"].pct_change()
-
 # Create the feature : open[t] / close[t]
 df["feature_open"] = df["open"]/df["close"]
-
 # Create the feature : high[t] / close[t]
 df["feature_high"] = df["high"]/df["close"]
-
 # Create the feature : low[t] / close[t]
 df["feature_low"] = df["low"]/df["close"]
-
  # Create the feature : volume[t] / max(*volume[t-7*24:t+1])
 df["feature_volume"] = df["volume"] / df["volume"].rolling(7*24).max()
-
 df.dropna(inplace= True) # Clean again !
 # Eatch step, the environment will return 5 inputs  : "feature_close", "feature_open", "feature_high", "feature_low", "feature_volume"
 

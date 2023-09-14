@@ -22,7 +22,7 @@ env = DummyVecEnv([lambda: StockTradingEnv(df)])
 model = PPO(MlpPolicy, env, verbose=1)
 model.learn(total_timesteps=20000)
 print("training completed")
-obs = env.reset()
+obs = env.reset(seed=42)
 for i in range(2000):
     print("starting step: ", i)
     action, _states = model.predict(obs)
