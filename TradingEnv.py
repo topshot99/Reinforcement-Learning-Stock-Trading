@@ -10,16 +10,12 @@ def preprocess(df, inplace=True):
     df.rename(columns=new_columns,inplace=True)
     # Create the feature : ( close[t] - close[t-1] )/ close[t-1]
     df["feature_close"] = df["close"].pct_change()
-
     # Create the feature : open[t] / close[t]
     df["feature_open"] = df["open"]/df["close"]
-
     # Create the feature : high[t] / close[t]
     df["feature_high"] = df["high"]/df["close"]
-
     # Create the feature : low[t] / close[t]
     df["feature_low"] = df["low"]/df["close"]
-
     # Create the feature : volume[t] / max(*volume[t-7*24:t+1])
     df["feature_volume"] = df["volume"] / df["volume"].rolling(7*24).max()
 
@@ -42,6 +38,8 @@ for filename in os.listdir(data_dir):
         
         # Save the preprocessed data as a pickle file
         df.to_pickle(os.path.join(data_dir, filename[:-4] + '.pkl'))
+
+
 env = gym.make(
     "MultiDatasetTradingEnv",
     preprocess=preprocess,
@@ -60,6 +58,9 @@ model.learn(total_timesteps=int(1e4))
 # Run an episode until it ends :
 done, truncated = False, False
 observation, info = env.reset()
+
+print("Observation: ")
+print(observation)
 while not done and not truncated:
     # Use the trained agent to select an action (buy, sell, hold)
     # Pick a position by its index in your position list (=[-1, 0, 1])....usually something like : position_index = your_policy(observation)
@@ -69,6 +70,6 @@ while not done and not truncated:
     # position_index = env.action_space.sample() # At every timestep, pick a random position index from your position list (=[-1, 0, 1])
     # observation, reward, done, truncated, info = env.step(position_index)
 
-# Optionally, save the trained model for later use
-# can be loaded using model = A2C.load("trained_trading_agent")
+# # Optionally, save the trained model for later use
+# # can be loaded using model = A2C.load("trained_trading_agent")
 model.save("trading_agent")
