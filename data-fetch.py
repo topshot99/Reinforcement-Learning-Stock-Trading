@@ -15,7 +15,7 @@ import pandas as pd
 #     data.to_csv(os.path.join("data", symbol+".csv"))
 
 # Test data download
-start_date_test = "2023-08-14"
+start_date_test = "2022-09-14"
 end_date_test = "2023-09-14"
 nifty50_symbols_test = ["INDIGO"]
 for symbol in nifty50_symbols_test:

@@ -39,18 +39,14 @@ df.dropna(inplace=True)
 
 # Iterate over each day's data
 for index, row in df.iterrows():
-    action = positions[trading_logic(row)[0]]  # Determine trading action based on your strategy
-    print("action: ", action)
+    position = positions[trading_logic(row)[0]]  # Determine trading action based on your strategy
+    print("action: ", position)
     print("initial balance: ", balance)
     # Execute the trading action
-    if action == 1:  # Buy
-        if position == 0:
-            position = 1
-            balance -= row['close_price']  # Deduct the purchase cost
-    elif action == -1:  # Sell
-        if position == 1:
-            position = 0
-            balance += row['close_price']  # Add the selling price
+    if position == 1:  # Buy
+        balance -= row['close_price']  # Deduct the purchase cost
+    elif position == -1:  # Sell
+        balance += row['close_price']  # Add the selling price
     print("later balance: ", balance)
 
 # Calculate the net profit margin
