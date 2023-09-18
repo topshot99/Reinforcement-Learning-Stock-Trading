@@ -17,8 +17,8 @@ def preprocess(df, inplace=True):
     # Create the feature : low[t] / close[t]
     df["feature_low"] = df["low"]/df["close"]
     # Create the feature : volume[t] / max(*volume[t-7*24:t+1])
-    df["feature_volume"] = df["volume"] / df["volume"].rolling(7*24).max()
-
+   
+    # convert the DatetimeIndex to a string with the desired format
     df.dropna(inplace= True) # Clean again !
     return df.copy()
 #df = pd.read_csv('./data/HINDUNILVR.csv')
@@ -32,7 +32,10 @@ for filename in os.listdir(data_dir):
     if filename.endswith('.csv'):
         # Load the CSV file into a pandas DataFrame
         df = pd.read_csv(os.path.join(data_dir, filename))
+        df['Date']=pd.to_datetime(df['Date'])
+        df=df.set_index('Date')
         df=preprocess(df)
+        df['date_str'] = df.index.strftime("%Y-%m-%d %H:%M")
         # Preprocess the data as needed
         # ...
         
@@ -69,7 +72,7 @@ while not done and not truncated:
     observation, reward, done, truncated, info = env.step(action)
     # position_index = env.action_space.sample() # At every timestep, pick a random position index from your position list (=[-1, 0, 1])
     # observation, reward, done, truncated, info = env.step(position_index)
-
+    env.save_for_render(dir = "render_logs")
 # # Optionally, save the trained model for later use
 # # can be loaded using model = A2C.load("trained_trading_agent")
 model.save("trading_agent")
