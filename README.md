@@ -28,6 +28,11 @@ Run TestTradingEnv.py to evaluate the accuracy of the trained model when making 
 ```bash
 python TestTradingEnv.py
 ```
+4. **Render the model**
+This custom trained model can be rendered by running the renderscript
+```bash
+python renderscript.py
+```
 
 ## Additional Resources
 
